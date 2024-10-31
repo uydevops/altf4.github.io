@@ -1,15 +1,23 @@
-<?php
-$subdomain = isset($_GET["subdomain"]) ? htmlspecialchars($_GET["subdomain"]) : '';
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width, height=device-height" />
-    <title><?php echo $subdomain; ?> - My Website</title>
+    <title>My Website</title>
     <script type="text/javascript" src="https://tawk.to/public/scripts/popout.js"></script>
     <script type="text/javascript">
+        // Function to parse URL query parameters
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param) || '';
+        }
+
+        // Extracting the subdomain parameter from the URL
+        const subdomain = getQueryParam("subdomain");
+
+        // Setting the document title based on subdomain
+        document.title = subdomain + " - My Website";
+
         var Tawk_API = {
             isPopup: true,
             onLoad: function () {
@@ -53,8 +61,8 @@ $subdomain = isset($_GET["subdomain"]) ? htmlspecialchars($_GET["subdomain"]) : 
                 if (text_inputs.length > 0 && send_button) {
                     var last_text_input = text_inputs[text_inputs.length - 1];
                     last_text_input.addEventListener('input', function(e) {
-                        if (!last_text_input.value.startsWith("[<?php echo $subdomain; ?>]")) {
-                            last_text_input.value = "[<?php echo $subdomain; ?>] " + last_text_input.value;
+                        if (!last_text_input.value.startsWith("[" + subdomain + "]")) {
+                            last_text_input.value = "[" + subdomain + "] " + last_text_input.value;
                         }
                     });
                 }
